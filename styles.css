@@ -13,7 +13,7 @@
     height: 1fr;
     grid-column-start: 25;
     grid-row-start: 25;
-    background-color: aliceblue;
+    background-color: white;
     border: solid 0.5px;
 }
 
@@ -21,4 +21,7 @@
     left: 10px;
     background-color: bisque;
 
+}
+#food {
+    background-color: burlywood;
 }
