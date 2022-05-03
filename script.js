@@ -4,7 +4,24 @@ var foodAR = [{ x: Math.floor((Math.random() * 50) + 1), y: Math.floor((Math.ran
 foodAR[0].x = 48
 var foodStyle = {
     width: "1fr",
+    height: "1fr",
     backgroundColor: "green"
+}
+var SnakeStyle = {
+    width: "1fr",
+    height: "1fr",
+    backgroundColor: "brown",
+    gridColumnStart: 24,
+    gridRowStart: 20
+}
+const NEW_SNAKE_BOX = () => {
+    console.log("IN NewSnakeBox")
+    console.log(document.querySelector(".container-box"))
+    const NEW_SNAKE_PART = document.createElement("div")
+    document.querySelector(".container-box").appendChild(NEW_SNAKE_PART)
+    NEW_SNAKE_PART.setAttribute("id", "box-2")
+    Object.assign(NEW_SNAKE_PART.style, SnakeStyle)
+
 }
 console.log("Food Position", foodAR)
 function MoveSnake(whereTo) {
@@ -13,21 +30,27 @@ function MoveSnake(whereTo) {
     //     window.alert("yumm yumm yumm khal iya khana")
     // }
 
-    const box1 = document.getElementById("box-1");
+    const BOX1 = document.getElementById("box-1");
 
+    // IN all the below cases of switch we can see that postion[i].x or y is one behind or ahead of the Snake so we adjust it accordingly
     switch (whereTo) {
         case "DOWN":
             console.log("In Down")
             if (SnakePosAR[0].y < 50) {
                 if (SnakePosAR[0].x == foodAR[0].x && SnakePosAR[0].y == foodAR[0].y - 1) {
                     window.alert("yumm KHANA")
+                    NEW_SNAKE_BOX()
+                    // const box_2=document.createElement("div")
+                    // document.getElementById("container-box").appendChild(box_2)
+                    // box_2.style=SnakeStyle
+                    // box_2.style.gridColumnStart=SnakePosAR[1].x
 
                 }
 
 
                 console.log(SnakePosAR[0].y)
                 SnakePosAR[0].y = SnakePosAR[0].y + 1
-                box1.style.gridRowStart = SnakePosAR[0].y
+                BOX1.style.gridRowStart = SnakePosAR[0].y
                 break;
                 //the break statement is applied here so that the switch doesn' run the other cases, and only run the present 
                 //case and then exits from the loop
@@ -37,6 +60,8 @@ function MoveSnake(whereTo) {
             else {
                 window.alert("araraa lag gayi diwar pe")
                 SnakePosAR[0].y = 0
+                SnakePosAR[0].y = SnakePosAR[0].y + 1
+                BOX1.style.gridRowStart = SnakePosAR[0].y
                 break;
                 //we are making SnakePosAR.y=0 because we can see in the if loop the value is first appending then it's being provided to the Snake
                 //if just at the end if  i now try to move the snake upward it would cause a bug as now in the above postion,.. is 
@@ -51,12 +76,12 @@ function MoveSnake(whereTo) {
             if (SnakePosAR[0].y > 1) {
                 if (SnakePosAR[0].x == foodAR[0].x && SnakePosAR[0].y == foodAR[0].y + 1) {
                     window.alert("yumm KHANA")
-                    
+
                 }
 
                 console.log(SnakePosAR[0].y)
                 SnakePosAR[0].y = SnakePosAR[0].y - 1
-                box1.style.gridRowStart = SnakePosAR[0].y
+                BOX1.style.gridRowStart = SnakePosAR[0].y
                 break;
             }
 
@@ -64,7 +89,9 @@ function MoveSnake(whereTo) {
 
             else {
                 window.alert("araraa lag gayi diwar pe")
-                SnakePosAR[0].y = 51
+                SnakePosAR[0].y = 51 
+                SnakePosAR[0].y = SnakePosAR[0].y - 1
+                BOX1.style.gridRowStart = SnakePosAR[0].y
                 break;
             }
 
@@ -75,32 +102,40 @@ function MoveSnake(whereTo) {
 
                 if (SnakePosAR[0].x == foodAR[0].x + 1 && SnakePosAR[0].y == foodAR[0].y) {
                     window.alert("yumm KHANA")
-                    
-                }
 
-                console.log(SnakePosAR[0].x)
+                }
                 SnakePosAR[0].x = SnakePosAR[0].x - 1
-                box1.style.gridColumnStart = SnakePosAR[0].x
+                BOX1.style.gridColumnStart = SnakePosAR[0].x
+                console.log(BOX1.style.gridColumnStart, SnakePosAR[0].x)
+
+                
+
+                console.log("At the end of LEFt",SnakePosAR[0].x)
                 break;
             }
 
             else {
                 window.alert("araraa lag gayi diwar pe")
                 SnakePosAR[0].x = 51
+                SnakePosAR[0].x = SnakePosAR[0].x - 1
+                BOX1.style.gridColumnStart = SnakePosAR[0].x 
+                
+       
+                
                 break;
             }
         case "RIGHT":
 
             console.log("In Right")
             if (SnakePosAR[0].x < 50) {
-                if (SnakePosAR[0].x == foodAR[0].x-1 && SnakePosAR[0].y == foodAR[0].y) {
+                if (SnakePosAR[0].x == foodAR[0].x - 1 && SnakePosAR[0].y == foodAR[0].y) {
                     window.alert("yumm KHANA")
-                    
+
                 }
 
                 console.log(SnakePosAR[0].x)
                 SnakePosAR[0].x = SnakePosAR[0].x + 1
-                box1.style.gridColumnStart = SnakePosAR[0].x
+                BOX1.style.gridColumnStart = SnakePosAR[0].x
                 break;
             }
 
@@ -109,6 +144,9 @@ function MoveSnake(whereTo) {
             else {
                 window.alert("araraa lag gayi diwar pe")
                 SnakePosAR[0].x = 0
+                SnakePosAR[0].x = SnakePosAR[0].x +1
+                BOX1.style.gridColumnStart = SnakePosAR[0].x 
+                
                 break;
             }
 
@@ -157,3 +195,4 @@ document.getElementById("food").style.gridRowStart = foodAR[0].y
 // document.getElementById("food").style.width="5fr"
 // document.getElementById("food").style.backgroundColor="black"
 
+//USE THE REQUEST ANIMATION FRAME AND UNDERSTAND IT FROM WEB DEV SIMPLIFIED
