@@ -1,7 +1,9 @@
-
+var last_render_Time = 0
+var button_Clicked = "";
+const SNAKE_SPEED = 5;
 var SnakePosAR = [{ x: 25, y: 25 }]
 var foodAR = [{ x: Math.floor((Math.random() * 50) + 1), y: Math.floor((Math.random() * 50) + 1) }]
-foodAR[0].x = 48
+var whereTo = "";
 var foodStyle = {
     width: "1fr",
     height: "1fr",
@@ -24,7 +26,74 @@ const NEW_SNAKE_BOX = () => {
 
 }
 console.log("Food Position", foodAR)
-function MoveSnake(whereTo) {
+
+
+
+
+function main(current_Time) {
+
+    let second_since_lastRender = (current_Time - last_render_Time) / 1000
+    window.requestAnimationFrame(main)
+
+
+    if (second_since_lastRender < (1 / (SNAKE_SPEED))) return
+    last_render_Time = current_Time
+    console.log("ChckPt-1: animation running")
+    MoveSnake()
+}
+const Animate = () => {
+    window.requestAnimationFrame(main)
+}
+const MoveActions = () => {
+
+    document.getElementById("food").style = foodStyle
+    document.getElementById("food").style.gridColumnStart = foodAR[0].x
+
+    document.getElementById("food").style.gridRowStart = foodAR[0].y
+    console.log("ChckPt-2: animation running at MoveAction")
+    //Moving Snake with Buttons
+    document.getElementById("UpBtn").onclick = () => {
+        Animate()
+        whereTo = "UP"
+    }
+    document.getElementById("DnBtn").onclick = () => {
+        Animate()
+        whereTo = "DOWN"
+    }
+    document.getElementById("RtBtn").onclick = () => {
+        Animate()
+        whereTo = "RIGHT"
+    }
+    document.getElementById("LtBtn").onclick = () => {
+        Animate()
+        whereTo = "LEFT"
+    }
+
+
+    //Moving Snake with arrow keys
+    window.onkeydown = (e) => {
+        switch (e.keyCode) {
+            case (37):
+                Animate()
+                whereTo = "LEFT"
+                break;
+            case 38:
+                Animate()
+                whereTo = "UP"
+                break;
+            case 39:
+                Animate()
+                whereTo = "RIGHT"
+                break;
+            case 40:
+                Animate()
+                whereTo = "DOWN"
+                break;
+        }
+    }
+
+}
+function MoveSnake() {
     //here you can see that it is working okish but not in say if we go down
     // if ((SnakePosAR[0].x == foodAR[0].x-1 && SnakePosAR[0].y==foodAR[0].y) || (SnakePosAR[0].x == foodAR[0].x+1 && SnakePosAR[0].y==foodAR[0].y) || (SnakePosAR[0].x == foodAR[0].x && SnakePosAR[0].y==foodAR[0].y-1) || (SnakePosAR[0].x == foodAR[0].x && SnakePosAR[0].y==foodAR[0].y+1)) {
     //     window.alert("yumm yumm yumm khal iya khana")
@@ -89,7 +158,7 @@ function MoveSnake(whereTo) {
 
             else {
                 window.alert("araraa lag gayi diwar pe")
-                SnakePosAR[0].y = 51 
+                SnakePosAR[0].y = 51
                 SnakePosAR[0].y = SnakePosAR[0].y - 1
                 BOX1.style.gridRowStart = SnakePosAR[0].y
                 break;
@@ -108,9 +177,9 @@ function MoveSnake(whereTo) {
                 BOX1.style.gridColumnStart = SnakePosAR[0].x
                 console.log(BOX1.style.gridColumnStart, SnakePosAR[0].x)
 
-                
 
-                console.log("At the end of LEFt",SnakePosAR[0].x)
+
+                console.log("At the end of LEFt", SnakePosAR[0].x)
                 break;
             }
 
@@ -118,10 +187,10 @@ function MoveSnake(whereTo) {
                 window.alert("araraa lag gayi diwar pe")
                 SnakePosAR[0].x = 51
                 SnakePosAR[0].x = SnakePosAR[0].x - 1
-                BOX1.style.gridColumnStart = SnakePosAR[0].x 
-                
-       
-                
+                BOX1.style.gridColumnStart = SnakePosAR[0].x
+
+
+
                 break;
             }
         case "RIGHT":
@@ -137,62 +206,23 @@ function MoveSnake(whereTo) {
                 SnakePosAR[0].x = SnakePosAR[0].x + 1
                 BOX1.style.gridColumnStart = SnakePosAR[0].x
                 break;
-            }
+            }   
 
 
 
             else {
                 window.alert("araraa lag gayi diwar pe")
                 SnakePosAR[0].x = 0
-                SnakePosAR[0].x = SnakePosAR[0].x +1
-                BOX1.style.gridColumnStart = SnakePosAR[0].x 
-                
+                SnakePosAR[0].x = SnakePosAR[0].x + 1
+                BOX1.style.gridColumnStart = SnakePosAR[0].x
+
                 break;
             }
 
 
     }
 }
-
-
-//Moving Snake with Buttons
-document.getElementById("UpBtn").onclick = () => {
-    MoveSnake("UP")
+document.getElementById("Play").onclick=()=> 
+{
+    if (window.confirm("START GAME")) MoveActions()
 }
-document.getElementById("DnBtn").onclick = () => {
-    MoveSnake("DOWN")
-}
-document.getElementById("RtBtn").onclick = () => {
-    MoveSnake("RIGHT")
-}
-document.getElementById("LtBtn").onclick = () => {
-    MoveSnake("LEFT")
-}
-
-
-//Moving Snake with arrow keys
-window.onkeydown = (e) => {
-    switch (e.keyCode) {
-        case (37):
-            MoveSnake("LEFT")
-            break;
-        case 38:
-            MoveSnake("UP")
-            break;
-        case 39:
-            MoveSnake("RIGHT")
-            break;
-        case 40:
-            MoveSnake("DOWN")
-            break;
-    }
-}
-
-document.getElementById("food").style = foodStyle
-document.getElementById("food").style.gridColumnStart = foodAR[0].x
-
-document.getElementById("food").style.gridRowStart = foodAR[0].y
-// document.getElementById("food").style.width="5fr"
-// document.getElementById("food").style.backgroundColor="black"
-
-//USE THE REQUEST ANIMATION FRAME AND UNDERSTAND IT FROM WEB DEV SIMPLIFIED
