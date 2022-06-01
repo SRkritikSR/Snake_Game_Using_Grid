@@ -8,10 +8,11 @@
     margin: auto;
 }
 
+
 #box-1 {
     width: 1fr;
     height: 1fr;
-    grid-column-start: 25;
+    grid-column-star    t: 25;
     grid-row-start: 25;
     background-color: white;
     border: solid 0.5px;
