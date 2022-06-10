@@ -16,15 +16,15 @@ var SnakeStyle = {
     gridColumnStart: 24,
     gridRowStart: 20
 }
-const NEW_SNAKE_BOX = () => {
-    console.log("IN NewSnakeBox")
-    console.log(document.querySelector(".container-box"))
-    const NEW_SNAKE_PART = document.createElement("div")
-    document.querySelector(".container-box").appendChild(NEW_SNAKE_PART)
-    NEW_SNAKE_PART.setAttribute("id", "box-2")
-    Object.assign(NEW_SNAKE_PART.style, SnakeStyle)
+// const NEW_SNAKE_BOX = () => {
+//     console.log("IN NewSnakeBox")
+//     console.log(document.querySelector(".container-box"))
+//     const NEW_SNAKE_PART = document.createElement("div")
+//     document.querySelector(".container-box").appendChild(NEW_SNAKE_PART)
+//     NEW_SNAKE_PART.setAttribute("id", "box-2")
+//     Object.assign(NEW_SNAKE_PART.style, SnakeStyle)
 
-}
+// }
 console.log("Food Position", foodAR)
 
 
@@ -44,12 +44,17 @@ function main(current_Time) {
 const Animate = () => {
     window.requestAnimationFrame(main)
 }
-const MoveActions = () => {
-
+function  FoodAllocate() {
+    foodAR[0].x=Math.floor((Math.random() * 50) + 1)
+    foodAR[0].y=Math.floor((Math.random()*50)+1)
     document.getElementById("food").style = foodStyle
     document.getElementById("food").style.gridColumnStart = foodAR[0].x
 
     document.getElementById("food").style.gridRowStart = foodAR[0].y
+}
+const MoveActions = () => {
+
+    FoodAllocate()
     console.log("ChckPt-2: animation running at MoveAction")
     //Moving Snake with Buttons
     document.getElementById("UpBtn").onclick = () => {
@@ -93,6 +98,12 @@ const MoveActions = () => {
     }
 
 }
+function EatSnake() {
+    //append the food's position to the SnakePostAR
+    SnakePosAR.push({x: foodAR[0].x,y: foodAR[0].y})
+    console.log(SnakePosAR)
+
+}
 function MoveSnake() {
     //here you can see that it is working okish but not in say if we go down
     // if ((SnakePosAR[0].x == foodAR[0].x-1 && SnakePosAR[0].y==foodAR[0].y) || (SnakePosAR[0].x == foodAR[0].x+1 && SnakePosAR[0].y==foodAR[0].y) || (SnakePosAR[0].x == foodAR[0].x && SnakePosAR[0].y==foodAR[0].y-1) || (SnakePosAR[0].x == foodAR[0].x && SnakePosAR[0].y==foodAR[0].y+1)) {
@@ -108,7 +119,10 @@ function MoveSnake() {
             if (SnakePosAR[0].y < 50) {
                 if (SnakePosAR[0].x == foodAR[0].x && SnakePosAR[0].y == foodAR[0].y - 1) {
                     window.alert("yumm KHANA")
-                    NEW_SNAKE_BOX()
+                    
+                    FoodAllocate()
+                    EatSnake()
+                    // NEW_SNAKE_BOX()
                     // const box_2=document.createElement("div")
                     // document.getElementById("container-box").appendChild(box_2)
                     // box_2.style=SnakeStyle
@@ -145,6 +159,7 @@ function MoveSnake() {
             if (SnakePosAR[0].y > 1) {
                 if (SnakePosAR[0].x == foodAR[0].x && SnakePosAR[0].y == foodAR[0].y + 1) {
                     window.alert("yumm KHANA")
+                    FoodAllocate()
 
                 }
 
@@ -171,6 +186,7 @@ function MoveSnake() {
 
                 if (SnakePosAR[0].x == foodAR[0].x + 1 && SnakePosAR[0].y == foodAR[0].y) {
                     window.alert("yumm KHANA")
+                    FoodAllocate()
 
                 }
                 SnakePosAR[0].x = SnakePosAR[0].x - 1
@@ -199,6 +215,7 @@ function MoveSnake() {
             if (SnakePosAR[0].x < 50) {
                 if (SnakePosAR[0].x == foodAR[0].x - 1 && SnakePosAR[0].y == foodAR[0].y) {
                     window.alert("yumm KHANA")
+                    FoodAllocate()
 
                 }
 
@@ -207,9 +224,6 @@ function MoveSnake() {
                 BOX1.style.gridColumnStart = SnakePosAR[0].x
                 break;
             }   
-
-
-
             else {
                 window.alert("araraa lag gayi diwar pe")
                 SnakePosAR[0].x = 0
