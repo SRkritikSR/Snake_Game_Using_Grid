@@ -1,8 +1,8 @@
 .container-box {
     display: grid;
-    width: 40vmin;
-    height: 40vmax;
-    background-color: rebeccapurple;
+    width: 100vmin;
+    height: 100vmin;
+    background-color: green ;
     grid-template-rows: repeat(50,1fr);
     grid-template-columns: repeat(50,1fr);
     margin: auto;
@@ -12,15 +12,15 @@
 #box-1 {
     width: 1fr;
     height: 1fr;
-    grid-column-star    t: 25;
+    grid-column-start: 25;
     grid-row-start: 25;
-    background-color: white;
+    background-color: greenyellow;
     border: solid 0.5px;
 }
 
 #start_button {
     left: 10px;
-    background-color: bisque;
+    background-color: black;
 
 }
 #food {
